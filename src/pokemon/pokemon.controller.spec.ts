@@ -1,4 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonController } from './pokemon.controller';
 import { PokemonService, PokemonResponse } from './pokemon.service';
 import { when, mock, instance } from 'ts-mockito';

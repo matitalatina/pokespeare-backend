@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, InternalServerErrorException, HttpException } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { PokeApiClient } from './client/poke-api/poke-api.client';
 import { ShakespeareClient } from './client/shakespeare/shakespeare.client';
 import { isAxiosError } from './client/axios';

@@ -1,9 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ShakespeareClient } from './shakespeare.client';
 import { AxiosInstance } from 'axios';
-import { mock, instance, when } from 'ts-mockito';
-import qs from 'qs';
+import { instance, mock, when } from 'ts-mockito';
 import { getTranslationResponse } from './fixture/translations';
+import { ShakespeareClient } from './shakespeare.client';
 
 describe('ShakespeareClient', () => {
   let provider: ShakespeareClient;
