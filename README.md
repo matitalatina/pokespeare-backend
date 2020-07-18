@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/matitalatina/pokespeare-backend.svg?branch=master)](https://travis-ci.org/matitalatina/pokespeare-backend)
+
 # Pokespeare
 
 The Shakespearean PokeDex!
