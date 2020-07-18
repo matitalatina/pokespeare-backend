@@ -1,7 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 import { PokemonResponse, PokemonService } from './pokemon.service';
 
 @Controller('pokemon')
+@UseInterceptors(CacheInterceptor)
 export class PokemonController {
   constructor(
     private readonly service: PokemonService,

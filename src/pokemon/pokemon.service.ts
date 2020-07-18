@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException, HttpException } from '@nestjs/common';
 import { PokeApiClient } from './client/poke-api/poke-api.client';
 import { ShakespeareClient } from './client/shakespeare/shakespeare.client';
 import { isAxiosError } from './client/axios';
+import { TooManyRequestsException } from './client/errors/TooManyRequests';
 
 export interface PokemonResponse {
   name: string,
@@ -32,10 +33,14 @@ export class PokemonService {
         switch (e.response.status) {
           case 404:
             throw new NotFoundException();
+          case 429:
+            throw new TooManyRequestsException();
           default:
+            console.error('AxiosError: ', e, e.message, e.stack);
             throw new InternalServerErrorException();
         }
       }
+      console.error(e, e.message, e.stack);
       throw e;
     }
 

@@ -6,6 +6,7 @@ import { getSpeciesResponse } from './client/poke-api/fixture/species';
 import { getTranslationResponse } from './client/shakespeare/fixture/translations';
 import { NotFoundException } from '@nestjs/common';
 import { AxiosError } from 'axios';
+import { TooManyRequestsException } from './client/errors/TooManyRequests';
 
 describe('PokemonService', () => {
   let service: PokemonService;
@@ -86,5 +87,26 @@ describe('PokemonService', () => {
     };
     when(pokeApi.getSpecies(pokemon)).thenReject(axiosError);
     expect(service.getPokemon(pokemon)).rejects.toThrow(NotFoundException);
+  });
+
+  it('should raise 429 if too many requests', async () => {
+    const pokemon = 'pikachu';
+    const axiosError: AxiosError = {
+      config: {},
+      code: '404',
+      isAxiosError: true,
+      toJSON: () => ({}),
+      response: {
+        data: null,
+        status: 429,
+        statusText: '',
+        headers: {},
+        config: {}
+      },
+      name: '',
+      message: '',
+    };
+    when(pokeApi.getSpecies(pokemon)).thenReject(axiosError);
+    expect(service.getPokemon(pokemon)).rejects.toThrow(TooManyRequestsException);
   });
 });
