@@ -5,6 +5,7 @@ import { mock, when, instance } from 'ts-mockito';
 import { getSpeciesResponse } from './client/poke-api/fixture/species';
 import { getTranslationResponse } from './client/shakespeare/fixture/translations';
 import { NotFoundException } from '@nestjs/common';
+import { AxiosError } from 'axios';
 
 describe('PokemonService', () => {
   let service: PokemonService;
@@ -63,6 +64,27 @@ describe('PokemonService', () => {
       ...JSON.parse(getSpeciesResponse()),
       flavor_text_entries: []
     });
+    expect(service.getPokemon(pokemon)).rejects.toThrow(NotFoundException);
+  });
+
+  it('should raise not found if pokemon not found', async () => {
+    const pokemon = 'pikachu';
+    const axiosError: AxiosError = {
+      config: {},
+      code: '404',
+      isAxiosError: true,
+      toJSON: () => ({}),
+      response: {
+        data: null,
+        status: 404,
+        statusText: '',
+        headers: {},
+        config: {}
+      },
+      name: '',
+      message: '',
+    };
+    when(pokeApi.getSpecies(pokemon)).thenReject(axiosError);
     expect(service.getPokemon(pokemon)).rejects.toThrow(NotFoundException);
   });
 });
