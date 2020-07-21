@@ -28,7 +28,7 @@ $ npm install
 
 ## Running the app
 
-The env variables `ALLOWED_ORIGINS=<url>,...` enable CORS on the url you are passing.
+The env variables `ALLOWED_ORIGINS=<url>,...` enable CORS on the URLs you are passing.
 
 ```bash
 # development
