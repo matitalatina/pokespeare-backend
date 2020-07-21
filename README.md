@@ -4,6 +4,11 @@
 
 The Shakespearean PokeDex!
 
+## Requirements
+
+- [Node.js 12](https://nodejs.org/).
+- [Docker](https://www.docker.com/): if you want to start inside docker.
+
 ## Notes
 
 - All the code is tested using [TDD](https://en.wikipedia.org/wiki/Test-driven_development). This helps me to create [SOLID](https://it.wikipedia.org/wiki/SOLID) code.
@@ -12,6 +17,8 @@ The Shakespearean PokeDex!
 - I added cache on `/pokemon/{name}` endpoint to avoid 429 Too Many Request Error triggered by [Shakespeare translator](https://funtranslations.com/api/shakespeare).
 - I used [Nest JS](https://nestjs.com/) framework.
 - If you want to see it live, go to [https://pokespeare.mattianatali.dev/](https://pokespeare.mattianatali.dev/).
+- The `Dockerfile` uses multi-stage builds to optimize space.
+
 
 ## Installation
 
@@ -20,6 +27,8 @@ $ npm install
 ```
 
 ## Running the app
+
+The env variables `ALLOWED_ORIGINS=<url>,...` enable CORS on the url you are passing.
 
 ```bash
 # development
@@ -46,4 +55,16 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Docker
+
+If you want also the frontend, please see the [PokéSpeare docker repository](https://github.com/matitalatina/pokespeare-docker).
+
+```bash
+# Build
+docker build . -t pokespeare-backend --build-arg 
+
+# Run
+docker run -p 3000:3000 -e 'ALLOWED_ORIGINS=<YOUR_FRONTEND_URL>' pokespeare-backend
 ```
